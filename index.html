@@ -1,16 +1,266 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My First Website</title>
+    <title>CourtConnect</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        html{
+            scroll-behavior:smooth;
+        }
+
+        .slider{
+            overflow:hidden;
+            width:100%;
+        }
+
+        .slider-track{
+            display:flex;
+            width:calc(320px * 10);
+            animation:scroll 25s linear infinite;
+        }
+
+        .slider-track img{
+            width:320px;
+            height:220px;
+            object-fit:cover;
+            border-radius:16px;
+            margin-right:20px;
+            flex-shrink:0;
+        }
+
+        @keyframes scroll{
+            0%{
+                transform:translateX(0);
+            }
+            100%{
+                transform:translateX(calc(-340px * 5));
+            }
+        }
+    </style>
 </head>
-<body>
-    <header>
-        <h1>Welcome to My Website</h1>
-    </header>
-    <main>
-        <p>This is the main content area of the index.html file.</p>
-    </main>
+
+<body class="bg-gray-100">
+
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-center h-16">
+
+                <a href="#home" class="text-2xl font-bold text-blue-600">
+                    🏟 CourtConnect
+                </a>
+
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">Home</a>
+                    <a href="#centers" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">Sports Centers</a>
+                    <a href="#how" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">How It Works</a>
+                    <a href="#contact" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">Contact</a>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-4">
+                    <button class="text-blue-600 font-medium hover:text-blue-800 transition">
+                        Login
+                    </button>
+
+                    <button class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition duration-300">
+                        Register
+                    </button>
+                </div>
+
+                <button class="md:hidden text-3xl text-blue-600">
+                    ☰
+                </button>
+
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="bg-white py-16">
+
+        <div class="text-center px-6">
+
+            <h1 class="text-5xl md:text-6xl font-bold text-gray-800">
+                One Place to Book, Play & Conquer
+            </h1>
+
+            <p class="mt-5 text-xl text-gray-600 max-w-3xl mx-auto">
+                Discover sports centers, reserve courts and get game-ready in minutes.
+            </p>
+
+        </div>
+
+        <div class="slider mt-14">
+
+            <div class="slider-track">
+
+                <img src="images/badminton.webp">
+                <img src="images/football.avif">
+                <img src="images/cricket.jpg">
+                <img src="images/basketball.webp">
+                <img src="images/tennis.avif">
+
+                <img src="images/badminton.webp">
+                <img src="images/football.avif">
+                <img src="images/cricket.jpg">
+                <img src="images/basketball.webp">
+                <img src="images/tennis.avif">
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section id="centers" class="py-20">
+
+        <div class="max-w-7xl mx-auto px-6">
+
+            <h2 class="text-4xl font-bold text-center text-gray-800 mb-12">
+                Sports Centers
+            </h2>
+
+            <div class="grid md:grid-cols-3 gap-8">
+
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <img src="images/center1.jpg" class="h-56 w-full object-cover">
+
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold">
+                            Champion Sports Arena
+                        </h3>
+
+                        <p class="text-gray-500 mt-2">
+                            📍 Bengaluru
+                        </p>
+
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">🏸 Badminton</span>
+                            <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">⚽ Football</span>
+                            <span class="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-sm">🏀 Basketball</span>
+                        </div>
+
+                        <button class="w-full mt-6 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <img src="images/center2.jpg" class="h-56 w-full object-cover">
+
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold">
+                            Victory Turf Club
+                        </h3>
+
+                        <p class="text-gray-500 mt-2">
+                            📍 Hyderabad
+                        </p>
+
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm">🏏 Cricket</span>
+                            <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">⚽ Football</span>
+                        </div>
+
+                        <button class="w-full mt-6 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <img src="images/center3.jpg" class="h-56 w-full object-cover">
+
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold">
+                            Elite Sports Hub
+                        </h3>
+
+                        <p class="text-gray-500 mt-2">
+                            📍 Mumbai
+                        </p>
+
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">🏸 Badminton</span>
+                            <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm">🏏 Cricket</span>
+                            <span class="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-sm">🏀 Basketball</span>
+                        </div>
+
+                        <button class="w-full mt-6 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section id="how" class="bg-white py-20">
+
+        <div class="max-w-6xl mx-auto px-6">
+
+            <h2 class="text-4xl font-bold text-center mb-12">
+                How It Works
+            </h2>
+
+            <div class="grid md:grid-cols-4 gap-8 text-center">
+
+                <div>
+                    <div class="text-5xl mb-4">🔍</div>
+                    <h3 class="font-bold text-xl">Find</h3>
+                    <p class="mt-2 text-gray-600">Search nearby sports centers.</p>
+                </div>
+
+                <div>
+                    <div class="text-5xl mb-4">🏟</div>
+                    <h3 class="font-bold text-xl">Choose</h3>
+                    <p class="mt-2 text-gray-600">Select your preferred court.</p>
+                </div>
+
+                <div>
+                    <div class="text-5xl mb-4">📅</div>
+                    <h3 class="font-bold text-xl">Book</h3>
+                    <p class="mt-2 text-gray-600">Reserve your slot instantly.</p>
+                </div>
+
+                <div>
+                    <div class="text-5xl mb-4">🏆</div>
+                    <h3 class="font-bold text-xl">Play</h3>
+                    <p class="mt-2 text-gray-600">Enjoy your game and compete.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section id="contact" class="py-20">
+
+        <div class="max-w-4xl mx-auto px-6 text-center">
+
+            <h2 class="text-4xl font-bold mb-6">
+                Contact Us
+            </h2>
+
+            <p class="text-lg text-gray-600">
+                support@courtconnect.com
+            </p>
+
+            <p class="text-lg text-gray-600 mt-2">
+                +91 98765 43210
+            </p>
+
+        </div>
+
+    </section>
+
 </body>
 </html>
+```
