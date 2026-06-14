@@ -451,11 +451,8 @@
                     (position) => {
                         const lat = position.coords.latitude;
                         const lon = position.coords.longitude;
-                        
-                        // Opens Google Maps in a new tab searching for nearby sports centers
-                        window.open(`https://www.google.com/maps/search/sports+centers/@${lat},${lon},14z`, '_blank');
-                        
-                        // Hide the text result if it was showing, and reset the button
+                        mapFrame.src = `https://maps.google.com/maps?q=${lat},${lon}&z=14&output=embed`;
+                        mapContainer.classList.remove('hidden');
                         geoResult.classList.add('hidden');
                         geoBtn.innerHTML = '<i class="fa-solid fa-location-crosshairs mr-2"></i> Find Venues Near Me';
                     },
