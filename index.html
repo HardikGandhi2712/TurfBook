@@ -1,266 +1,437 @@
-```html
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CourtConnect</title>
+    <title>PlayOn</title>
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <style>
-        html{
-            scroll-behavior:smooth;
-        }
-
-        .slider{
-            overflow:hidden;
-            width:100%;
-        }
-
-        .slider-track{
-            display:flex;
-            width:calc(320px * 10);
-            animation:scroll 25s linear infinite;
-        }
-
-        .slider-track img{
-            width:320px;
-            height:220px;
-            object-fit:cover;
-            border-radius:16px;
-            margin-right:20px;
-            flex-shrink:0;
-        }
-
-        @keyframes scroll{
-            0%{
-                transform:translateX(0);
-            }
-            100%{
-                transform:translateX(calc(-340px * 5));
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
-<body class="bg-gray-100">
+<body class="bg-gray-100 relative">
 
-    <nav class="bg-white shadow-md sticky top-0 z-50">
+    <nav class="bg-white shadow-md sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-6">
             <div class="flex justify-between items-center h-16">
 
                 <a href="#home" class="text-2xl font-bold text-blue-600">
-                    🏟 CourtConnect
+                    <i class="fa-solid fa-play mr-2"></i>PlayOn
                 </a>
 
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="#home" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">Home</a>
-                    <a href="#centers" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">Sports Centers</a>
-                    <a href="#how" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">How It Works</a>
-                    <a href="#contact" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">Contact</a>
+                    <a href="#home" class="text-gray-700 hover:text-blue-600 font-medium">Home</a>
+                    <a href="#games" class="text-gray-700 hover:text-blue-600 font-medium">Join a Game</a>
+                    <a href="#venues" class="text-gray-700 hover:text-blue-600 font-medium">Venues</a>
+                    <a href="#how" class="text-gray-700 hover:text-blue-600 font-medium">How It Works</a>
+                    <a href="#features" class="text-gray-700 hover:text-blue-600 font-medium">Features</a>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-4">
-                    <button class="text-blue-600 font-medium hover:text-blue-800 transition">
-                        Login
-                    </button>
-
-                    <button class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition duration-300">
-                        Register
-                    </button>
-                </div>
-
-                <button class="md:hidden text-3xl text-blue-600">
-                    ☰
+                <button id="mobileMenuBtn" class="md:hidden text-2xl text-blue-600 focus:outline-none">
+                    <i class="fa-solid fa-bars"></i>
                 </button>
 
+            </div>
+        </div>
+
+        <div id="mobileMenu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-lg z-30">
+            <div class="flex flex-col px-6 py-4 space-y-4">
+                <a href="#home" class="mobile-link text-gray-700 hover:text-blue-600 font-medium">Home</a>
+                <a href="#games" class="mobile-link text-gray-700 hover:text-blue-600 font-medium">Join a Game</a>
+                <a href="#venues" class="mobile-link text-gray-700 hover:text-blue-600 font-medium">Venues</a>
+                <a href="#how" class="mobile-link text-gray-700 hover:text-blue-600 font-medium">How It Works</a>
+                <a href="#features" class="mobile-link text-gray-700 hover:text-blue-600 font-medium">Features</a>
             </div>
         </div>
     </nav>
 
     <section id="home" class="bg-white py-16">
-
         <div class="text-center px-6">
-
-            <h1 class="text-5xl md:text-6xl font-bold text-gray-800">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800">
                 One Place to Book, Play & Conquer
             </h1>
-
-            <p class="mt-5 text-xl text-gray-600 max-w-3xl mx-auto">
+            <p class="mt-5 text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
                 Discover sports centers, reserve courts and get game-ready in minutes.
             </p>
-
         </div>
 
-        <div class="slider mt-14">
-
-            <div class="slider-track">
-
-                <img src="images/badminton.webp">
-                <img src="images/football.avif">
-                <img src="images/cricket.jpg">
-                <img src="images/basketball.webp">
-                <img src="images/tennis.avif">
-
-                <img src="images/badminton.webp">
-                <img src="images/football.avif">
-                <img src="images/cricket.jpg">
-                <img src="images/basketball.webp">
-                <img src="images/tennis.avif">
-
+        <div class="mt-14 max-w-4xl mx-auto px-6 pb-6">
+            <div class="relative rounded-2xl shadow-md overflow-hidden group">
+                <div id="carousel" class="flex transition-transform duration-500 ease-in-out w-full">
+                    <img src="images/badminton.webp" alt="Badminton" class="w-full flex-shrink-0 h-64 md:h-[400px] object-cover">
+                    <img src="images/football.avif" alt="Football" class="w-full flex-shrink-0 h-64 md:h-[400px] object-cover">
+                    <img src="images/cricket.jpg" alt="Cricket" class="w-full flex-shrink-0 h-64 md:h-[400px] object-cover">
+                    <img src="images/basketball.webp" alt="Basketball" class="w-full flex-shrink-0 h-64 md:h-[400px] object-cover">
+                    <img src="images/tennis.avif" alt="Tennis" class="w-full flex-shrink-0 h-64 md:h-[400px] object-cover">
+                </div>
+                <button id="prev" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/80 text-blue-600 w-10 h-10 rounded-full shadow flex items-center justify-center opacity-0 group-hover:opacity-100 hover:bg-white transition">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <button id="next" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/80 text-blue-600 w-10 h-10 rounded-full shadow flex items-center justify-center opacity-0 group-hover:opacity-100 hover:bg-white transition">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
             </div>
-
         </div>
-
     </section>
 
-    <section id="centers" class="py-20">
-
+    <section id="games" class="py-20 bg-gray-50 border-t border-gray-200">
         <div class="max-w-7xl mx-auto px-6">
-
-            <h2 class="text-4xl font-bold text-center text-gray-800 mb-12">
-                Sports Centers
-            </h2>
-
-            <div class="grid md:grid-cols-3 gap-8">
-
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-                    <img src="images/center1.jpg" class="h-56 w-full object-cover">
-
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold">
-                            Champion Sports Arena
-                        </h3>
-
-                        <p class="text-gray-500 mt-2">
-                            📍 Bengaluru
-                        </p>
-
-                        <div class="mt-4 flex flex-wrap gap-2">
-                            <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">🏸 Badminton</span>
-                            <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">⚽ Football</span>
-                            <span class="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-sm">🏀 Basketball</span>
-                        </div>
-
-                        <button class="w-full mt-6 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700">
-                            View Details
-                        </button>
-                    </div>
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12">Join a Game</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-center">
+                    <div class="text-4xl text-blue-600 mb-4"><i class="fa-solid fa-futbol"></i></div>
+                    <h3 class="text-xl font-bold">7v7 Football</h3>
+                    <p class="text-gray-500 mt-2">Victory Turf</p>
+                    <p class="text-gray-500">Today, 7:00 PM</p>
+                    <button class="action-btn w-full mt-6 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">Join Game</button>
                 </div>
-
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-                    <img src="images/center2.jpg" class="h-56 w-full object-cover">
-
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold">
-                            Victory Turf Club
-                        </h3>
-
-                        <p class="text-gray-500 mt-2">
-                            📍 Hyderabad
-                        </p>
-
-                        <div class="mt-4 flex flex-wrap gap-2">
-                            <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm">🏏 Cricket</span>
-                            <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">⚽ Football</span>
-                        </div>
-
-                        <button class="w-full mt-6 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700">
-                            View Details
-                        </button>
-                    </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-center">
+                    <div class="text-4xl text-blue-600 mb-4"><i class="fa-solid fa-table-tennis-paddle-ball"></i></div>
+                    <h3 class="text-xl font-bold">2v2 Badminton</h3>
+                    <p class="text-gray-500 mt-2">Champion Arena</p>
+                    <p class="text-gray-500">Tomorrow, 6:30 AM</p>
+                    <button class="action-btn w-full mt-6 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">Join Game</button>
                 </div>
-
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-                    <img src="images/center3.jpg" class="h-56 w-full object-cover">
-
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold">
-                            Elite Sports Hub
-                        </h3>
-
-                        <p class="text-gray-500 mt-2">
-                            📍 Mumbai
-                        </p>
-
-                        <div class="mt-4 flex flex-wrap gap-2">
-                            <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">🏸 Badminton</span>
-                            <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm">🏏 Cricket</span>
-                            <span class="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-sm">🏀 Basketball</span>
-                        </div>
-
-                        <button class="w-full mt-6 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700">
-                            View Details
-                        </button>
-                    </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-center">
+                    <div class="text-4xl text-blue-600 mb-4"><i class="fa-solid fa-basketball"></i></div>
+                    <h3 class="text-xl font-bold">5v5 Basketball</h3>
+                    <p class="text-gray-500 mt-2">Elite Sports Hub</p>
+                    <p class="text-gray-500">Saturday, 5:00 PM</p>
+                    <button class="action-btn w-full mt-6 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">Join Game</button>
                 </div>
-
             </div>
-
         </div>
-
     </section>
 
-    <section id="how" class="bg-white py-20">
+    <section id="venues" class="py-20 bg-white border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12">Premium Venues</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 rounded-xl shadow-sm overflow-hidden border border-gray-100">
+                    <img src="https://images.unsplash.com/photo-1521537634581-0dced2fee2ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="h-48 md:h-56 w-full object-cover" alt="Arena">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold">Champion Sports Arena</h3>
+                        <p class="text-gray-500 mt-2"><i class="fa-solid fa-location-dot mr-1"></i>Bengaluru</p>
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">Badminton</span>
+                            <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium">Football</span>
+                        </div>
+                        <button class="action-btn w-full mt-6 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700">Book Now</button>
+                    </div>
+                </div>
+                <div class="bg-gray-50 rounded-xl shadow-sm overflow-hidden border border-gray-100">
+                    <img src="https://images.unsplash.com/photo-1459865264687-595d652de67e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="h-48 md:h-56 w-full object-cover" alt="Turf">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold">Victory Turf Club</h3>
+                        <p class="text-gray-500 mt-2"><i class="fa-solid fa-location-dot mr-1"></i>Hyderabad</p>
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm font-medium">Cricket</span>
+                            <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium">Football</span>
+                        </div>
+                        <button class="action-btn w-full mt-6 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700">Book Now</button>
+                    </div>
+                </div>
+                <div class="bg-gray-50 rounded-xl shadow-sm overflow-hidden border border-gray-100">
+                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="h-48 md:h-56 w-full object-cover" alt="Hub">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold">Elite Sports Hub</h3>
+                        <p class="text-gray-500 mt-2"><i class="fa-solid fa-location-dot mr-1"></i>Mumbai</p>
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">Badminton</span>
+                            <span class="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-sm font-medium">Basketball</span>
+                        </div>
+                        <button class="action-btn w-full mt-6 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700">Book Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <section id="how" class="bg-gray-50 py-20 border-t border-gray-200">
         <div class="max-w-6xl mx-auto px-6">
-
-            <h2 class="text-4xl font-bold text-center mb-12">
-                How It Works
-            </h2>
-
-            <div class="grid md:grid-cols-4 gap-8 text-center">
-
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">How It Works</h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-8 text-center">
                 <div>
-                    <div class="text-5xl mb-4">🔍</div>
+                    <div class="text-5xl mb-4 text-blue-600"><i class="fa-solid fa-magnifying-glass"></i></div>
                     <h3 class="font-bold text-xl">Find</h3>
                     <p class="mt-2 text-gray-600">Search nearby sports centers.</p>
                 </div>
-
                 <div>
-                    <div class="text-5xl mb-4">🏟</div>
+                    <div class="text-5xl mb-4 text-blue-600"><i class="fa-solid fa-map-location-dot"></i></div>
                     <h3 class="font-bold text-xl">Choose</h3>
                     <p class="mt-2 text-gray-600">Select your preferred court.</p>
                 </div>
-
                 <div>
-                    <div class="text-5xl mb-4">📅</div>
+                    <div class="text-5xl mb-4 text-blue-600"><i class="fa-regular fa-calendar-check"></i></div>
                     <h3 class="font-bold text-xl">Book</h3>
                     <p class="mt-2 text-gray-600">Reserve your slot instantly.</p>
                 </div>
-
                 <div>
-                    <div class="text-5xl mb-4">🏆</div>
+                    <div class="text-5xl mb-4 text-blue-600"><i class="fa-solid fa-trophy"></i></div>
                     <h3 class="font-bold text-xl">Play</h3>
                     <p class="mt-2 text-gray-600">Enjoy your game and compete.</p>
                 </div>
-
             </div>
-
         </div>
-
     </section>
 
-    <section id="contact" class="py-20">
-
-        <div class="max-w-4xl mx-auto px-6 text-center">
-
-            <h2 class="text-4xl font-bold mb-6">
-                Contact Us
-            </h2>
-
-            <p class="text-lg text-gray-600">
-                support@courtconnect.com
-            </p>
-
-            <p class="text-lg text-gray-600 mt-2">
-                +91 98765 43210
-            </p>
-
+    <section id="features" class="py-20 bg-white border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12">More Than Just Courts</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div class="p-6">
+                    <div class="text-4xl text-blue-600 mb-4"><i class="fa-solid fa-bag-shopping"></i></div>
+                    <h3 class="text-xl font-bold mb-3">Rent Equipment</h3>
+                    <p class="text-gray-500 mb-6">No gear? No problem. Rent premium rackets, balls, and shoes directly at the venue.</p>
+                    <a href="#" class="action-btn text-blue-600 font-bold hover:text-blue-800">Learn More &rarr;</a>
+                </div>
+                <div class="p-6">
+                    <div class="text-4xl text-blue-600 mb-4"><i class="fa-solid fa-award"></i></div>
+                    <h3 class="text-xl font-bold mb-3">Tournaments</h3>
+                    <p class="text-gray-500 mb-6">Compete in local amateur leagues, test your skills, and win exciting cash prizes.</p>
+                    <a href="#" class="action-btn text-blue-600 font-bold hover:text-blue-800">Learn More &rarr;</a>
+                </div>
+                <div class="p-6">
+                    <div class="text-4xl text-blue-600 mb-4"><i class="fa-solid fa-store"></i></div>
+                    <h3 class="text-xl font-bold mb-3">List Your Venue</h3>
+                    <p class="text-gray-500 mb-6">Own a sports facility? Partner with us to increase your bookings and manage slots easily.</p>
+                    <a href="#" class="action-btn text-blue-600 font-bold hover:text-blue-800">Get Started &rarr;</a>
+                </div>
+            </div>
         </div>
-
     </section>
+
+    <section class="py-20 bg-gray-50 border-t border-gray-200">
+        <div class="max-w-3xl mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-10">Frequently Asked Questions</h2>
+            <div class="space-y-4">
+                <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+                    <button class="faq-btn w-full flex justify-between items-center p-5 text-left font-bold text-gray-800 hover:text-blue-600 focus:outline-none">
+                        Do I need an account to book a venue?
+                        <i class="fa-solid fa-chevron-down text-gray-400 transition-transform"></i>
+                    </button>
+                    <div class="faq-answer hidden px-5 pb-5 text-gray-600">
+                        Yes, creating a free account allows you to track your bookings, join community games, and earn reward points.
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+                    <button class="faq-btn w-full flex justify-between items-center p-5 text-left font-bold text-gray-800 hover:text-blue-600 focus:outline-none">
+                        Can I cancel or reschedule my booking?
+                        <i class="fa-solid fa-chevron-down text-gray-400 transition-transform"></i>
+                    </button>
+                    <div class="faq-answer hidden px-5 pb-5 text-gray-600">
+                        Absolutely. You can cancel or reschedule directly through the app up to 4 hours before your slot time.
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+                    <button class="faq-btn w-full flex justify-between items-center p-5 text-left font-bold text-gray-800 hover:text-blue-600 focus:outline-none">
+                        How does "Join a Game" work?
+                        <i class="fa-solid fa-chevron-down text-gray-400 transition-transform"></i>
+                    </button>
+                    <div class="faq-answer hidden px-5 pb-5 text-gray-600">
+                        If a host has booked a court but is short on players, they can list the game publicly. You just pay your split to join!
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+                    <button class="faq-btn w-full flex justify-between items-center p-5 text-left font-bold text-gray-800 hover:text-blue-600 focus:outline-none">
+                        Is equipment provided at the venue?
+                        <i class="fa-solid fa-chevron-down text-gray-400 transition-transform"></i>
+                    </button>
+                    <div class="faq-answer hidden px-5 pb-5 text-gray-600">
+                        Most of our premium venues offer equipment rental. You can view available gear and reserve it during checkout.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
+            <div>
+                <a href="#home" class="text-2xl font-bold text-blue-400"><i class="fa-solid fa-play mr-2"></i>PlayOn</a>
+                <p class="text-gray-400 mt-4 leading-relaxed">
+                    The easiest way to discover, book, and play your favorite sports at premium venues near you.
+                </p>
+            </div>
+            <div>
+                <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+                <ul class="space-y-2">
+                    <li><a href="#home" class="text-gray-400 hover:text-white">Home</a></li>
+                    <li><a href="#games" class="text-gray-400 hover:text-white">Join a Game</a></li>
+                    <li><a href="#venues" class="text-gray-400 hover:text-white">Venues</a></li>
+                    <li><a href="#how" class="text-gray-400 hover:text-white">How It Works</a></li>
+                    <li><a href="#features" class="text-gray-400 hover:text-white">Features</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-bold mb-4">Connect With Us</h4>
+                <div class="flex space-x-4">
+                    <a href="https://www.facebook.com" target="_blank" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 text-white"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://twitter.com" target="_blank" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-400 text-white"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="https://www.instagram.com" target="_blank" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-pink-600 text-white"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+                <p class="text-gray-500 text-sm mt-6">© 2026 PlayOn. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <button id="openContactBtn" title="Contact Us" class="fixed bottom-6 right-6 bg-blue-600 text-white p-4 rounded-full shadow-2xl hover:bg-blue-700 transition transform hover:scale-110 z-50 flex items-center justify-center">
+        <span class="text-2xl"><i class="fa-solid fa-comment-dots"></i></span>
+    </button>
+
+    <div id="contactModal" class="hidden fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center px-4 transition-opacity">
+        <div class="bg-white rounded-2xl w-full max-w-lg p-8 relative shadow-2xl">
+            <button id="closeModalBtn" class="absolute top-4 right-4 text-gray-400 hover:text-gray-800 text-2xl font-bold leading-none focus:outline-none">&times;</button>
+            <h2 class="text-3xl font-bold text-gray-800 mb-2">Get in touch</h2>
+            <p class="text-gray-500 mb-6">Fill out the form below and we'll get back to you soon.</p>
+            <form id="contactForm" class="space-y-4">
+                <div>
+                    <label class="block text-gray-700 font-medium mb-1" for="name">Name</label>
+                    <input type="text" id="name" required class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-medium mb-1" for="email">Email</label>
+                    <input type="email" id="email" required class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-medium mb-1" for="message">Message</label>
+                    <textarea id="message" rows="4" required class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 resize-none"></textarea>
+                </div>
+                <button type="submit" id="submitBtn" class="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition duration-300">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="actionModal" class="hidden fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center px-4 transition-opacity">
+        <div class="bg-white rounded-2xl w-full max-w-sm p-8 relative shadow-2xl text-center">
+            <button id="closeActionBtn" class="absolute top-4 right-4 text-gray-400 hover:text-gray-800 text-2xl font-bold leading-none focus:outline-none">&times;</button>
+            <div class="text-5xl text-blue-600 mb-4"><i class="fa-solid fa-mobile-screen-button"></i></div>
+            <h2 class="text-2xl font-bold text-gray-800 mb-2">Get the App!</h2>
+            <p class="text-gray-500 mb-6">To book venues, join games, and rent gear, please download the PlayOn app.</p>
+            <div class="space-y-3">
+                <a href="https://www.apple.com/app-store/" target="_blank" class="app-download-btn w-full bg-black text-white font-bold py-3 rounded-lg hover:bg-gray-800 transition duration-300 flex items-center justify-center">
+                    <i class="fa-brands fa-apple text-xl mr-2"></i> App Store
+                </a>
+                <a href="https://play.google.com/store/" target="_blank" class="app-download-btn w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition duration-300 flex items-center justify-center">
+                    <i class="fa-brands fa-google-play text-xl mr-2"></i> Google Play
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const carousel = document.getElementById("carousel");
+        const slides = document.querySelectorAll("#carousel img");
+        let currentIndex = 0;
+        const totalSlides = slides.length;
+
+        function updateCarousel() {
+            carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % totalSlides;
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+
+        document.getElementById("next").addEventListener("click", nextSlide);
+        document.getElementById("prev").addEventListener("click", prevSlide);
+
+        setInterval(nextSlide, 3000);
+
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        const openContactBtn = document.getElementById('openContactBtn');
+        const contactModal = document.getElementById('contactModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const contactForm = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submitBtn');
+
+        openContactBtn.addEventListener('click', () => {
+            contactModal.classList.remove('hidden');
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            contactModal.classList.add('hidden');
+        });
+
+        contactModal.addEventListener('click', (event) => {
+            if (event.target === contactModal) {
+                contactModal.classList.add('hidden');
+            }
+        });
+
+        contactForm.addEventListener('submit', (event) => {
+            event.preventDefault(); 
+            const originalText = submitBtn.innerText;
+            submitBtn.innerText = "Message Sent!";
+            submitBtn.classList.replace('bg-blue-600', 'bg-green-600');
+            submitBtn.classList.replace('hover:bg-blue-700', 'hover:bg-green-700');
+
+            setTimeout(() => {
+                contactForm.reset();
+                contactModal.classList.add('hidden');
+                submitBtn.innerText = originalText;
+                submitBtn.classList.replace('bg-green-600', 'bg-blue-600');
+                submitBtn.classList.replace('hover:bg-green-700', 'hover:bg-blue-700');
+            }, 2000);
+        });
+
+        const actionBtns = document.querySelectorAll('.action-btn');
+        const actionModal = document.getElementById('actionModal');
+        const closeActionBtn = document.getElementById('closeActionBtn');
+        const appDownloadBtns = document.querySelectorAll('.app-download-btn');
+
+        actionBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault(); 
+                actionModal.classList.remove('hidden');
+            });
+        });
+
+        closeActionBtn.addEventListener('click', () => {
+            actionModal.classList.add('hidden');
+        });
+
+        appDownloadBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                actionModal.classList.add('hidden');
+            });
+        });
+
+        actionModal.addEventListener('click', (event) => {
+            if (event.target === actionModal) {
+                actionModal.classList.add('hidden');
+            }
+        });
+
+        const faqBtns = document.querySelectorAll('.faq-btn');
+        
+        faqBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const answer = btn.nextElementSibling;
+                const icon = btn.querySelector('i');
+                answer.classList.toggle('hidden');
+                icon.classList.toggle('rotate-180');
+            });
+        });
+    </script>
 
 </body>
 </html>
-```
