@@ -338,7 +338,8 @@
                 </div>
                 <div>
                     <label class="block text-gray-700 font-medium mb-1">Email</label>
-                    <input type="email" required class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500">
+                    <input type="email" id="contactEmail" required class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500">
+                    <p id="emailError" class="text-xs text-red-500 mt-1 hidden">Please enter a valid email address.</p>
                 </div>
                 <div>
                     <label class="block text-gray-700 font-medium mb-1">Message</label>
@@ -542,26 +543,11 @@
         const openContactBtn = document.getElementById('openContactBtn');
         const contactModal = document.getElementById('contactModal');
         const closeModalBtn = document.getElementById('closeModalBtn');
-        const contactForm = document.getElementById('contactForm');
-        const submitBtn = document.getElementById('submitBtn');
 
         openContactBtn.addEventListener('click', () => contactModal.classList.remove('hidden'));
         closeModalBtn.addEventListener('click', () => contactModal.classList.add('hidden'));
         contactModal.addEventListener('click', (e) => {
             if (e.target === contactModal) contactModal.classList.add('hidden');
-        });
-
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault(); 
-            const originalText = submitBtn.innerText;
-            submitBtn.innerText = "Message Sent!";
-            submitBtn.classList.replace('bg-blue-600', 'bg-green-600');
-            setTimeout(() => {
-                contactForm.reset();
-                contactModal.classList.add('hidden');
-                submitBtn.innerText = originalText;
-                submitBtn.classList.replace('bg-green-600', 'bg-blue-600');
-            }, 2000);
         });
 
         const faqBtns = document.querySelectorAll('.faq-btn');
@@ -572,6 +558,44 @@
                 answer.classList.toggle('hidden');
                 icon.classList.toggle('rotate-180');
             });
+        });
+
+        const contactForm = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const contactEmail = document.getElementById('contactEmail');
+        const emailError = document.getElementById('emailError');
+
+        contactEmail.addEventListener('blur', () => {
+            if (!contactEmail.value.includes('@') || contactEmail.value.length < 5) {
+                emailError.classList.remove('hidden');
+                contactEmail.classList.add('border-red-500');
+            }
+        });
+
+        contactEmail.addEventListener('input', () => {
+            if (contactEmail.value.includes('@')) {
+                emailError.classList.add('hidden');
+                contactEmail.classList.remove('border-red-500');
+            }
+        });
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault(); 
+            
+            if (!contactEmail.value.includes('@')) {
+                emailError.classList.remove('hidden');
+                return; 
+            }
+
+            const originalText = submitBtn.innerText;
+            submitBtn.innerText = "Message Sent!";
+            submitBtn.classList.replace('bg-blue-600', 'bg-green-600');
+            setTimeout(() => {
+                contactForm.reset();
+                contactModal.classList.add('hidden');
+                submitBtn.innerText = originalText;
+                submitBtn.classList.replace('bg-green-600', 'bg-blue-600');
+            }, 2000);
         });
     </script>
 </body>
