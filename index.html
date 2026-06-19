@@ -33,6 +33,7 @@
                 <div id="navProfile" class="hidden items-center space-x-3">
                     <img id="navAvatar" src="" alt="Profile" class="w-10 h-10 rounded-full object-cover border-2 border-blue-600">
                     <span id="navName" class="font-bold text-gray-800"></span>
+                    <button><i id="deleteProfileIcon" class="fa-solid fa-trash mr-2"></i></button>
                 </div>
                 <div>
                     <button id="mobileMenuBtn" class="md:hidden text-2xl text-blue-600 focus:outline-none">
@@ -449,7 +450,15 @@
                 );
             }
         });
+        
+        const deleteProfileIcon = document.getElementById('deleteProfileIcon');
 
+        deleteProfileIcon.addEventListener('click', () => {
+            localStorage.removeItem('playon_name');
+            localStorage.removeItem('playon_avatar');
+            navProfile.classList.add('hidden');
+            document.getElementById('playerCardForm').classList.remove('hidden');
+        });
 
         const dropZone = document.getElementById('dropZone');
         const playerNameInput = document.getElementById('playerNameInput');
