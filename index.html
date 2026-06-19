@@ -20,12 +20,12 @@
     <nav class="bg-white shadow-md sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-6">
             <div class="flex justify-between items-center h-16">
-                <a href="#home" class="text-2xl font-bold text-blue-600">
+                <a href="#home" class="text-2xl font-bold text-blue-600 flex items-center">
                     <i class="fa-solid fa-play mr-2"></i>PlayOn
                 </a>
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="#home" class="text-gray-700 hover:text-blue-600 font-medium">Home</a>
-                    <a href="#games" class="text-gray-700 hover:text-blue-600 font-medium">Join a Game</a>
+                    <a href="#games" class="text-gray-700 hover:text-blue-600 font-medium">Matches</a>
                     <a href="#venues" class="text-gray-700 hover:text-blue-600 font-medium">Venues</a>
                     <a href="#how" class="text-gray-700 hover:text-blue-600 font-medium">How It Works</a>
                     <a href="#video" class="text-gray-700 hover:text-blue-600 font-medium">Promo</a>
@@ -47,7 +47,7 @@
         <div id="mobileMenu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-lg z-30">
             <div class="flex flex-col px-6 py-4 space-y-4">
                 <a href="#home" class="mobile-link text-gray-700 hover:text-blue-600 font-medium">Home</a>
-                <a href="#games" class="mobile-link text-gray-700 hover:text-blue-600 font-medium">Join a Game</a>
+                <a href="#games" class="mobile-link text-gray-700 hover:text-blue-600 font-medium">Matches</a>  
                 <a href="#venues" class="mobile-link text-gray-700 hover:text-blue-600 font-medium">Venues</a>
                 <a href="#how" class="mobile-link text-gray-700 hover:text-blue-600 font-medium">How It Works</a>
                 <a href="#video" class="mobile-link text-gray-700 hover:text-blue-600 font-medium">Promo</a>
@@ -106,46 +106,48 @@
         </div>
     </section>
 
-    <section id="games" class="py-20 bg-gray-50 border-t border-gray-200">
-        <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12">Join a Game</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 relative">
-                    <button class="share-btn absolute top-4 right-4 text-gray-400 hover:text-blue-600 transition" data-info="Join my 7v7 Football game at Victory Turf today at 7:00 PM! Link: playon.com/game/1">
-                        <i class="fa-solid fa-share-nodes text-xl"></i>
-                    </button>
-                    <div class="text-4xl text-blue-600 mb-4 text-center"><i class="fa-solid fa-futbol"></i></div>
-                    <h3 class="text-xl font-bold text-center">7v7 Football</h3>
-                    <p class="text-gray-500 mt-2 text-center">Victory Turf</p>
-                    <p class="text-gray-500 text-center">Today, 7:00 PM</p>
-                    <button class="action-btn w-full mt-6 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">Join Game</button>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 relative">
-                    <button class="share-btn absolute top-4 right-4 text-gray-400 hover:text-blue-600 transition" data-info="Join my 2v2 Badminton game at Champion Arena tomorrow at 6:30 AM! Link: playon.com/game/2">
-                        <i class="fa-solid fa-share-nodes text-xl"></i>
-                    </button>
-                    <div class="text-4xl text-blue-600 mb-4 text-center"><i class="fa-solid fa-table-tennis-paddle-ball"></i></div>
-                    <h3 class="text-xl font-bold text-center">2v2 Badminton</h3>
-                    <p class="text-gray-500 mt-2 text-center">Champion Arena</p>
-                    <p class="text-gray-500 text-center">Tomorrow, 6:30 AM</p>
-                    <button class="action-btn w-full mt-6 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">Join Game</button>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 relative">
-                    <button class="share-btn absolute top-4 right-4 text-gray-400 hover:text-blue-600 transition" data-info="Join my 5v5 Basketball game at Elite Sports Hub on Saturday at 5:00 PM! Link: playon.com/game/3">
-                        <i class="fa-solid fa-share-nodes text-xl"></i>
-                    </button>
-                    <div class="text-4xl text-blue-600 mb-4 text-center"><i class="fa-solid fa-basketball"></i></div>
-                    <h3 class="text-xl font-bold text-center">5v5 Basketball</h3>
-                    <p class="text-gray-500 mt-2 text-center">Elite Sports Hub</p>
-                    <p class="text-gray-500 text-center">Saturday, 5:00 PM</p>
-                    <button class="action-btn w-full mt-6 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">Join Game</button>
-                </div>
+
+<section id="games" class="py-20 bg-gray-50">
+
+    <div class="max-w-5xl mx-auto px-6 text-center">
+
+        <h2 class="text-4xl font-bold text-gray-800">
+            Find Your Next Game
+        </h2>
+
+        <p class="mt-4 text-gray-600">
+            Browse football, cricket, badminton, basketball, tennis and more. Join games that need players and connect with sports enthusiasts in your area.
+        </p>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
+
+            <div class="bg-white p-6 rounded-xl shadow">
+                ⚽ Football
             </div>
-            <div id="toast" class="fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white px-6 py-3 rounded-lg shadow-lg hidden z-50">
-                Copied to clipboard!
+
+            <div class="bg-white p-6 rounded-xl shadow">
+                🏏 Cricket
             </div>
+
+            <div class="bg-white p-6 rounded-xl shadow">
+                🏸 Badminton
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow">
+                🏀 Basketball
+            </div>
+
         </div>
-    </section>
+
+        <a href="games.html"
+            class="inline-block mt-10 bg-blue-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-blue-700">
+            View All Active Matches
+        </a>
+
+    </div>
+
+</section>
+
 
     <section id="venues" class="py-20 bg-white border-t border-gray-200">
         <div class="max-w-7xl mx-auto px-6">
@@ -448,21 +450,6 @@
             }
         });
 
-        const shareBtns = document.querySelectorAll('.share-btn');
-        const toast = document.getElementById('toast');
-
-        shareBtns.forEach(btn => {
-            btn.addEventListener('click', async () => {
-                const textToCopy = btn.getAttribute('data-info');
-                try {
-                    await navigator.clipboard.writeText(textToCopy);
-                    toast.classList.remove('hidden');
-                    setTimeout(() => toast.classList.add('hidden'), 2000);
-                } catch (err) {
-                    console.error(err);
-                }
-            });
-        });
 
         const dropZone = document.getElementById('dropZone');
         const playerNameInput = document.getElementById('playerNameInput');

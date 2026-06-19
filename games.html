@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlayOn - Featured Matches</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .dark-mode {
+            filter: invert(1) hue-rotate(180deg);
+        }
+
+        .dark-mode img {
+            filter: invert(1) hue-rotate(180deg);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <script src="data/matches.js"></script>
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-center h-16">
+
+                <a href="index.html" class="text-2xl font-bold text-blue-600">
+                    <i class="fa-solid fa-play mr-2"></i>PlayOn
+                </a>
+
+                <div class="flex items-center gap-4">
+
+                    <a href="index.html" class="text-gray-700 hover:text-blue-600">
+                        Home
+                    </a>
+
+                    <button id="themeToggle" class="text-blue-600 text-xl">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+
+            <h1 class="text-5xl font-bold text-gray-800">
+                Featured Matches
+            </h1>
+
+            <p class="mt-4 text-xl text-gray-600">
+                Looking for teammates? Join one of our community games and
+                play with sports enthusiasts near you.
+            </p>
+
+        </div>
+    </section>
+
+    <!-- Filters -->
+    <section class="py-8">
+        <div class="max-w-7xl mx-auto px-6">
+
+            <div class="flex flex-col md:flex-row gap-4">
+
+                <input type="text" id="searchInput" placeholder="Search matches..."
+                    class="flex-1 border border-gray-300 rounded-lg px-4 py-3">
+
+                <select id="sportFilter" class="border border-gray-300 rounded-lg px-4 py-3">
+
+                    <option value="all">All Sports</option>
+                    <option value="football">Football</option>
+                    <option value="badminton">Badminton</option>
+                    <option value="basketball">Basketball</option>
+                    <option value="cricket">Cricket</option>
+                    <option value="tennis">Tennis</option>
+                    <option value="volleyball">Volleyball</option>
+                    <option value="tabletennis">Table Tennis</option>
+                    <option value="kabaddi">Kabaddi</option>
+
+                </select>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Match Grid -->
+    <section class="pb-20">
+        <div id="matchesContainer" class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        </div>
+    </section>
+
+    <div id="joinModal" class="hidden fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center px-4">
+        <div class="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl relative">
+
+            <button id="closeJoinModal"
+                class="absolute top-4 right-4 text-gray-400 hover:text-gray-800 text-2xl font-bold">
+                &times;
+            </button>
+
+            <div id="joinFormBox">
+                <h2 class="text-2xl font-bold text-gray-800 text-center">Join Match</h2>
+                <p id="selectedMatchText" class="text-gray-500 text-center mt-2"></p>
+
+                <form id="joinForm" class="space-y-4 mt-6">
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-1">Full Name</label>
+                        <input id="joinName" type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2">
+                        <p id="nameError" class="hidden text-xs text-red-500 mt-1">Name must be at least 3 characters.
+                        </p>
+                    </div>
+
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-1">Email</label>
+                        <input id="joinEmail" type="email" class="w-full border border-gray-300 rounded-lg px-4 py-2">
+                        <p id="emailError" class="hidden text-xs text-red-500 mt-1">Enter a valid email.</p>
+                    </div>
+
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-1">Contact Number</label>
+                        <input id="joinPhone" type="text" maxlength="10"
+                            class="w-full border border-gray-300 rounded-lg px-4 py-2">
+                        <p id="phoneError" class="hidden text-xs text-red-500 mt-1">Phone must be 10 digits.</p>
+                    </div>
+
+                    <button type="submit"
+                        class="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700">
+                        Send OTP
+                    </button>
+                </form>
+            </div>
+
+            <div id="otpBox" class="hidden text-center">
+                <h2 class="text-2xl font-bold text-gray-800">Verify OTP</h2>
+                <p class="text-gray-500 mt-2">Enter OTP shown in alert box.</p>
+
+                <input id="otpInput" maxlength="6"
+                    class="w-full border border-gray-300 rounded-lg px-4 py-3 mt-5 text-center text-xl tracking-widest">
+
+                <p id="otpError" class="hidden text-red-500 text-sm mt-2">Invalid OTP.</p>
+
+                <button id="verifyOtpBtn"
+                    class="w-full mt-5 bg-green-600 text-white py-3 rounded-lg font-bold hover:bg-green-700">
+                    Verify OTP
+                </button>
+            </div>
+
+            <div id="successBox" class="hidden text-center">
+                <div class="text-5xl text-green-600 mb-4">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800">Successfully Registered!</h2>
+                <p id="joinSuccessMessage" class="text-gray-600 mt-3"></p>
+                <button id="doneJoinBtn"
+                    class="mt-6 bg-blue-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-700">
+                    Done
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <div id=""
+        class="hidden fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center px-4 transition-opacity">
+        <div class="bg-white rounded-2xl w-full max-w-lg p-8 relative shadow-2xl">
+            <button id="closeModalBtn"
+                class="absolute top-4 right-4 text-gray-400 hover:text-gray-800 text-2xl font-bold leading-none focus:outline-none">&times;</button>
+            <h2 class="text-3xl font-bold text-gray-800 mb-2">Get in touch</h2>
+            <p class="text-gray-500 mb-6">Fill out the form below and we'll get back to you soon.</p>
+            <form id="contactForm" class="space-y-4">
+                <div>
+                    <label class="block text-gray-700 font-medium mb-1">Name</label>
+                    <input type="text" required
+                        class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-medium mb-1">Email</label>
+                    <input type="email" id="contactEmail" required
+                        class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500">
+                    <p id="emailError" class="text-xs text-red-500 mt-1 hidden">Please enter a valid email address.</p>
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-medium mb-1">Message</label>
+                    <textarea rows="4" required
+                        class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500 resize-none"></textarea>
+                </div>
+                <button type="submit" id="submitBtn"
+                    class="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition duration-300">Send
+                    Message</button>
+            </form>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-10">
+
+        <div class="max-w-7xl mx-auto px-6 text-center">
+
+            <h3 class="text-2xl font-bold">
+                PlayOn
+            </h3>
+
+            <p class="text-gray-400 mt-3">
+                Book courts, discover venues and join exciting matches.
+            </p>
+
+            <p class="text-gray-500 mt-4 text-sm">
+                © 2026 PlayOn. All rights reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+    <script>
+        let matchData =
+            JSON.parse(
+                localStorage.getItem("matchData")
+            ) || matches;
+        let joinedMatches =
+            JSON.parse(localStorage.getItem("joinedMatches")) || [];
+        const themeToggle = document.getElementById("themeToggle");
+
+        themeToggle.addEventListener("click", () => {
+            document.body.classList.toggle("dark-mode");
+        });
+
+        const searchInput = document.getElementById("searchInput");
+        const sportFilter = document.getElementById("sportFilter");
+        const matchesContainer = document.getElementById("matchesContainer");
+
+        function renderMatches(data) {
+
+            matchesContainer.innerHTML = "";
+
+            data.forEach(match => {
+
+                matchesContainer.innerHTML += `
+        <div class="match-card bg-white p-6 rounded-xl shadow border"
+             data-sport="${match.sport}">
+
+            <div class="text-center text-blue-600 text-5xl mb-4">
+                <i class="${match.icon}"></i>
+            </div>
+
+            <h3 class="text-xl font-bold text-center">
+                ${match.title}
+            </h3>
+
+            <p class="text-center text-gray-500 mt-2">
+                ${match.venue}
+            </p>
+
+            <p class="text-center text-gray-500">
+                ${match.dateTime}
+            </p>
+
+            <p class="text-center text-blue-600 mt-3 font-semibold">
+${match.playersNeeded} Players Needed
+            </p>
+
+${joinedMatches.includes(match.title) ? `
+    <button
+        disabled
+        class="joinBtn w-full mt-6 bg-green-600 text-white py-3 rounded-lg cursor-not-allowed">
+        Joined
+    </button>
+` : `
+    <button
+        class="joinBtn w-full mt-6 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700">
+        Join Match
+    </button>
+`}
+
+        </div>
+        `;
+            });
+
+            attachJoinEvents();
+        }
+
+        function filterMatches() {
+
+            const search =
+                searchInput.value.toLowerCase();
+
+            const sport =
+                sportFilter.value;
+
+            const filtered = matchData.filter(match => {
+
+                const text =
+                    `${match.title}
+             ${match.venue}
+             ${match.dateTime}
+             ${match.players}`
+                        .toLowerCase();
+
+                const matchesSearch =
+                    text.includes(search);
+
+                const matchesSport =
+                    sport === "all" ||
+                    sport === match.sport;
+
+                return matchesSearch &&
+                    matchesSport;
+            });
+
+            renderMatches(filtered);
+        }
+
+        searchInput.addEventListener(
+            "input",
+            filterMatches
+        );
+
+        sportFilter.addEventListener(
+            "change",
+            filterMatches
+        );
+
+        const joinModal =
+            document.getElementById("joinModal");
+
+        const closeJoinModal =
+            document.getElementById("closeJoinModal");
+
+        const joinFormBox =
+            document.getElementById("joinFormBox");
+
+        const otpBox =
+            document.getElementById("otpBox");
+
+        const successBox =
+            document.getElementById("successBox");
+
+        const joinForm =
+            document.getElementById("joinForm");
+
+        const selectedMatchText =
+            document.getElementById("selectedMatchText");
+
+        const joinSuccessMessage =
+            document.getElementById("joinSuccessMessage");
+
+        const joinName =
+            document.getElementById("joinName");
+
+        const joinEmail =
+            document.getElementById("joinEmail");
+
+        const joinPhone =
+            document.getElementById("joinPhone");
+
+        const otpInput =
+            document.getElementById("otpInput");
+
+        const nameError =
+            document.getElementById("nameError");
+
+        const emailError =
+            document.getElementById("emailError");
+
+        const phoneError =
+            document.getElementById("phoneError");
+
+        const otpError =
+            document.getElementById("otpError");
+
+        const verifyOtpBtn =
+            document.getElementById("verifyOtpBtn");
+
+        const doneJoinBtn =
+            document.getElementById("doneJoinBtn");
+
+        let selectedMatchName = "";
+        let selectedButton = null;
+        let generatedOtp = "";
+
+        function attachJoinEvents() {
+
+            document
+                .querySelectorAll(".joinBtn")
+                .forEach(btn => {
+
+                    btn.addEventListener(
+                        "click",
+                        () => {
+
+                            const card =
+                                btn.closest(".match-card");
+
+                            selectedMatchName =
+                                card.querySelector("h3").innerText;
+
+                            selectedButton = btn;
+
+                            selectedMatchText.innerText =
+                                `You are joining: ${selectedMatchName}`;
+
+                            joinFormBox.classList.remove("hidden");
+                            otpBox.classList.add("hidden");
+                            successBox.classList.add("hidden");
+
+                            joinForm.reset();
+
+                            otpInput.value = "";
+
+                            nameError.classList.add("hidden");
+                            emailError.classList.add("hidden");
+                            phoneError.classList.add("hidden");
+                            otpError.classList.add("hidden");
+
+                            joinModal.classList.remove("hidden");
+                        }
+                    );
+
+                });
+        }
+
+        function validateJoinForm() {
+
+            let isValid = true;
+
+            const nameValue =
+                joinName.value.trim();
+
+            const emailValue =
+                joinEmail.value.trim();
+
+            const phoneValue =
+                joinPhone.value.trim();
+
+            const emailPattern =
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            const phonePattern =
+                /^[0-9]{10}$/;
+
+            if (nameValue.length < 3) {
+
+                nameError.classList.remove("hidden");
+                isValid = false;
+
+            } else {
+
+                nameError.classList.add("hidden");
+            }
+
+            if (!emailPattern.test(emailValue)) {
+
+                emailError.classList.remove("hidden");
+                isValid = false;
+
+            } else {
+
+                emailError.classList.add("hidden");
+            }
+
+            if (!phonePattern.test(phoneValue)) {
+
+                phoneError.classList.remove("hidden");
+                isValid = false;
+
+            } else {
+
+                phoneError.classList.add("hidden");
+            }
+
+            return isValid;
+        }
+
+        joinForm.addEventListener(
+            "submit",
+            e => {
+
+                e.preventDefault();
+
+                if (!validateJoinForm()) {
+                    return;
+                }
+
+                generatedOtp =
+                    Math.floor(
+                        100000 +
+                        Math.random() * 900000
+                    ).toString();
+
+                alert(
+                    `Demo OTP: ${generatedOtp}`
+                );
+
+                joinFormBox.classList.add("hidden");
+
+                otpBox.classList.remove("hidden");
+            }
+        );
+
+        verifyOtpBtn.addEventListener(
+            "click",
+            () => {
+
+                const enteredOtp =
+                    otpInput.value.trim();
+
+                if (
+                    enteredOtp !== generatedOtp
+                ) {
+
+                    otpError.classList.remove("hidden");
+                    return;
+                }
+
+                otpError.classList.add("hidden");
+
+                otpBox.classList.add("hidden");
+                successBox.classList.remove("hidden");
+
+                joinSuccessMessage.innerText =
+                    `${joinName.value}, you have successfully registered for ${selectedMatchName}.`;
+
+                // Save joined match
+                if (!joinedMatches.includes(selectedMatchName)) {
+                    joinedMatches.push(selectedMatchName);
+
+                    localStorage.setItem(
+                        "joinedMatches",
+                        JSON.stringify(joinedMatches)
+                    );
+                }
+
+                // Reduce player count
+                const match = matchData.find(
+                    m => m.title === selectedMatchName
+                );
+
+                if (match && match.playersNeeded > 0) {
+
+                    match.playersNeeded--;
+
+                    localStorage.setItem(
+                        "matchData",
+                        JSON.stringify(matchData)
+                    );
+                }
+
+                selectedButton.innerText = "Joined";
+                selectedButton.disabled = true;
+                selectedButton.classList.remove(
+                    "bg-blue-600",
+                    "hover:bg-blue-700"
+                );
+                selectedButton.classList.add(
+                    "bg-green-600",
+                    "cursor-not-allowed"
+                );
+
+                // Refresh cards immediately
+                renderMatches(matchData);
+            }
+        );
+        joinPhone.addEventListener(
+            "input",
+            () => {
+
+                joinPhone.value =
+                    joinPhone.value.replace(
+                        /[^0-9]/g,
+                        ""
+                    );
+            }
+        );
+
+        otpInput.addEventListener(
+            "input",
+            () => {
+
+                otpInput.value =
+                    otpInput.value.replace(
+                        /[^0-9]/g,
+                        ""
+                    );
+            }
+        );
+
+        function resetModal() {
+
+            joinForm.reset();
+
+            joinFormBox.classList.remove("hidden");
+            otpBox.classList.add("hidden");
+            successBox.classList.add("hidden");
+
+            otpInput.value = "";
+
+            nameError.classList.add("hidden");
+            emailError.classList.add("hidden");
+            phoneError.classList.add("hidden");
+            otpError.classList.add("hidden");
+        }
+
+        closeJoinModal.addEventListener(
+            "click",
+            () => {
+
+                resetModal();
+
+                joinModal.classList.add("hidden");
+            }
+        );
+
+        doneJoinBtn.addEventListener(
+            "click",
+            () => {
+
+                resetModal();
+
+                joinModal.classList.add("hidden");
+            }
+        );
+
+        joinModal.addEventListener(
+            "click",
+            e => {
+
+                if (
+                    e.target === joinModal
+                ) {
+
+                    resetModal();
+
+                    joinModal.classList.add("hidden");
+                }
+            }
+        );
+
+        renderMatches(matchData);
+
+    </script>
+
+</body>
+
+</html>
