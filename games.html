@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlayOn - Active Games</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .dark-mode {
+            filter: invert(1) hue-rotate(180deg);
+        }
+
+        .dark-mode img {
+            filter: invert(1) hue-rotate(180deg);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+
+    <audio id="whistleAudio" src="audios/whistle.mp3"></audio>
+
+    <nav class="bg-white shadow-md sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-blue-600">
+                <i class="fa-solid fa-play mr-2"></i>PlayOn
+            </a>
+
+            <div class="flex items-center gap-6">
+                <a href="index.html" class="font-semibold text-gray-700 hover:text-blue-600">
+                    Home
+                </a>
+
+                <button id="themeToggle" class="text-xl text-blue-600">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="bg-white py-16 border-b">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h1 class="text-5xl font-bold text-gray-800">Active Games</h1>
+            <p class="mt-4 text-xl text-gray-600">Browse available games and join matches that need players. Complete a
+                quick verification to confirm your participation.</p>
+        </div>
+    </header>
+
+    <section class="py-8 bg-gray-50 border-b">
+        <div class="max-w-7xl mx-auto px-6 items-center justify-center flex flex-col md:flex-row gap-4">
+            <select id="sportFilter" class="w-64 border rounded-lg px-4 py-3">
+                <option value="all">All Sports</option>
+                <option value="football">Football</option>
+                <option value="badminton">Badminton</option>
+                <option value="basketball">Basketball</option>
+            </select>
+        </div>
+    </section>
+
+    <section class="py-12">
+        <div id="matchesContainer" class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        </div>
+    </section>
+
+    <div id="joinModal" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl p-8 max-w-sm w-full relative">
+            <button id="closeModal"
+                class="absolute top-4 right-4 text-gray-400 hover:text-gray-800 text-2xl font-bold">&times;</button>
+            <h2 id="modalTitle" class="text-xl font-bold mb-4 text-center">Join Match</h2>
+            <form id="joinForm" class="space-y-4">
+                <div id="inputGroup">
+                    <input id="joinEmail" type="text" placeholder="Email" class="w-full border rounded-lg px-4 py-2">
+                    <p id="emailError" class="hidden text-red-500 text-xs mt-1">Invalid email.</p>
+                    <input id="joinPhone" type="text" placeholder="Phone (10 digits)" maxlength="10"
+                        class="w-full border rounded-lg px-4 py-2 mt-2">
+                    <p id="phoneError" class="hidden text-red-500 text-xs mt-1">Invalid phone number.</p>
+                </div>
+                <div id="otpGroup" class="hidden text-center">
+                    <input id="otpInput" type="text" placeholder="Enter OTP" maxlength="4"
+                        class="w-full border rounded-lg px-4 py-2 text-center">
+                    <p id="otpError" class="hidden text-red-500 text-xs mt-1">Invalid OTP.</p>
+                </div>
+                <button id="actionBtn" type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg font-bold">Get
+                    OTP</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="bg-gray-900 text-white py-10 text-center">
+        <p>&copy; 2026 PlayOn. All rights reserved.</p>
+    </footer>
+
+    <script src="data/matches.js"></script>
+    <script>
+        let joinedGames = JSON.parse(localStorage.getItem("joinedGames")) || [];
+        let currentMatchId = null;
+        let currentOtp = null;
+
+        const container = document.getElementById("matchesContainer");
+        const modal = document.getElementById("joinModal");
+        const form = document.getElementById("joinForm");
+        const actionBtn = document.getElementById("actionBtn");
+        const otpGroup = document.getElementById("otpGroup");
+        const inputGroup = document.getElementById("inputGroup");
+
+        function render(data = matches) {
+            container.innerHTML = "";
+
+            data.forEach(m => {
+                const isJoined = joinedGames.includes(m.id);
+
+                let actionHtml;
+
+                if (isJoined) {
+                    actionHtml = `
+                        <div class="mt-6">
+                            <span class="block w-full py-2 rounded-lg text-green-600">
+                                Joined
+                            </span>
+
+                            <button onclick="cancelMatch(${m.id})"
+                                class="mt-2 w-full py-2 rounded-lg bg-red-600 text-white">
+                                Cancel
+                            </button>
+                        </div>`;
+                } else {
+                    actionHtml = `
+                        <button onclick="openModal(${m.id})"
+                            class="mt-6 w-full py-2 rounded-lg bg-blue-600 text-white">
+                            Join
+                        </button>`;
+                }
+
+                container.innerHTML += `
+            <div class="bg-white p-6 rounded-xl shadow border text-center">
+                <i class="${m.icon} text-4xl text-blue-600 mb-4"></i>
+
+                <h3 class="font-bold text-lg">${m.title}</h3>
+                <p class="text-gray-500 text-sm mt-1">${m.venue}</p>
+                <p class="text-gray-500 text-sm font-semibold">${m.dateTime}</p>
+
+                <div class="mt-3 flex justify-center gap-2 text-xs font-bold text-gray-600">
+                    <span>Age: ${m.ageGroup || 'Open'}</span>
+                    <span>|</span>
+                    <span>Level: ${m.skillLevel || 'All'}</span>
+                </div>
+
+                ${actionHtml}
+            </div>`;
+            });
+        }
+
+        function cancelMatch(id) {
+            joinedGames = joinedGames.filter(gameId => gameId !== id);
+
+            localStorage.setItem(
+                "joinedGames",
+                JSON.stringify(joinedGames)
+            );
+
+            render();
+        }
+
+        function openModal(id) {
+            currentMatchId = id;
+
+            form.reset();
+
+            document.getElementById("emailError").classList.add("hidden");
+            document.getElementById("phoneError").classList.add("hidden");
+            document.getElementById("otpError").classList.add("hidden");
+
+            inputGroup.classList.remove("hidden");
+            otpGroup.classList.add("hidden");
+
+            actionBtn.innerText = "Get OTP";
+
+            modal.classList.remove("hidden");
+        }
+
+        const emailError = document.getElementById("emailError");
+        const phoneError = document.getElementById("phoneError");
+        const otpError = document.getElementById("otpError");
+
+        const joinEmail = document.getElementById("joinEmail");
+        const joinPhone = document.getElementById("joinPhone");
+        const otpInput = document.getElementById("otpInput");
+
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            if (otpGroup.classList.contains("hidden")) {
+                const email = joinEmail.value.trim();
+                const phone = joinPhone.value.trim();
+                let valid = true;
+
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                    emailError.classList.remove("hidden");
+                    valid = false;
+                }
+
+                if (!/^[0-9]{10}$/.test(phone)) {
+                    phoneError.classList.remove("hidden");
+                    valid = false;
+                }
+
+                if (valid) {
+                    currentOtp = Math.floor(1000 + Math.random() * 9000).toString();
+                    alert("Test OTP: " + currentOtp);
+                    inputGroup.classList.add("hidden");
+                    otpGroup.classList.remove("hidden");
+                    actionBtn.innerText = "Verify";
+                }
+            } else {
+                const enteredOtp = otpInput.value;
+                if (enteredOtp === currentOtp) {
+                    whistleAudio.play();
+                    if (!joinedGames.includes(currentMatchId)) {
+                        joinedGames.push(currentMatchId);
+
+                        localStorage.setItem(
+                            "joinedGames",
+                            JSON.stringify(joinedGames)
+                        );
+                    }
+                    modal.classList.add("hidden");
+                    render();
+                } else {
+                    otpError.classList.remove("hidden");
+                }
+            }
+        });
+
+        document.getElementById("sportFilter").addEventListener("change", () => {
+            const selectedSport = document.getElementById("sportFilter").value;
+
+            if (selectedSport === "all") {
+                render(matches);
+            } else {
+                render(matches.filter(m => m.sport === selectedSport));
+            }
+        });
+
+        form.addEventListener("input", () => {
+            document.getElementById("emailError").classList.add("hidden");
+            document.getElementById("phoneError").classList.add("hidden");
+            document.getElementById("otpError").classList.add("hidden");
+        });
+
+        document.getElementById("closeModal").addEventListener("click", () => {
+            modal.classList.add("hidden");
+        });
+
+        document.getElementById("themeToggle").addEventListener("click", () => {
+            document.body.classList.toggle("dark-mode");
+        });
+
+        render();
+    </script>
+</body>
+
+</html>
