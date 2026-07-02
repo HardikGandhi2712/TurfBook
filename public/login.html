@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
+-->
+<html>
+
+<head>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #f3f4f6;
+        }
+
+        .container {
+            position: relative;
+            width: 850px;
+            height: 500px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, .15);
+            overflow: hidden;
+        }
+
+        .container .form-box {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            padding: 0 50px;
+            z-index: 2;
+        }
+
+        .form-box h2 {
+            font-size: 34px;
+            color: #1f2937;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .form-box .input-box {
+            position: relative;
+            width: 100%;
+            height: 55px;
+            margin: 22px 0;
+        }
+
+        .input-box input {
+            width: 100%;
+            height: 100%;
+            border: none;
+            outline: none;
+            background: transparent;
+            border-bottom: 2px solid #d1d5db;
+            font-size: 16px;
+            color: #1f2937;
+            font-weight: 500;
+            padding-right: 35px;
+            transition: .3s;
+        }
+
+        .input-box input:focus,
+        .input-box input:valid {
+            border-bottom: 2px solid #2563eb;
+        }
+
+        .input-box label {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7280;
+            pointer-events: none;
+            transition: .3s;
+        }
+
+        .input-box input:focus~label,
+        .input-box input:valid~label {
+            top: -8px;
+            color: #2563eb;
+            font-size: 14px;
+        }
+
+        .input-box i {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+            color: #9ca3af;
+            transition: .3s;
+        }
+
+        .input-box input:focus~i,
+        .input-box input:valid~i {
+            color: #2563eb;
+        }
+
+        .btn {
+            width: 100%;
+            height: 48px;
+            background: #2563eb;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 17px;
+            font-weight: 600;
+            transition: .3s;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, .3);
+        }
+
+        .regi-link {
+            text-align: center;
+            margin-top: 25px;
+            color: #6b7280;
+            font-size: 15px;
+        }
+
+        .regi-link a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .regi-link a:hover {
+            text-decoration: underline;
+        }
+
+        .info-content {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            padding: 0 60px;
+            text-align: center;
+            color: #fff;
+            z-index: 2;
+        }
+
+        .info-content h2 {
+            font-size: 42px;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .info-content p {
+            font-size: 17px;
+            line-height: 1.6;
+            color: #f8fafc;
+        }
+
+        .container .curved-shape {
+            position: absolute;
+            right: -180px;
+            top: -120px;
+            width: 700px;
+            height: 700px;
+            background: linear-gradient(135deg, #2563eb, #3b82f6, #60a5fa);
+            border-radius: 50%;
+        }
+
+        .input-box input::placeholder {
+            color: #9ca3af;
+        }
+
+        @media(max-width:900px) {
+
+            .container {
+                width: 95%;
+                height: auto;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .container .form-box {
+                position: relative;
+                width: 100%;
+                height: auto;
+                padding: 50px 35px;
+            }
+
+            .info-content {
+                position: relative;
+                width: 100%;
+                padding: 40px 30px;
+                background: linear-gradient(135deg, #2563eb, #3b82f6);
+            }
+
+            .container .curved-shape {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="curved-shape"></div>
+        <div class="form-box Login">
+            <h2>Login</h2>
+            <form id="loginForm" method="post" action="/login">
+                <div class="input-box">
+                    <input type='text' name='username' id="username" required>
+                    <label for="">Username</label>
+                    <i class="bx bxs-user"></i>
+                </div>
+
+                <div class="input-box">
+                    <input type='text' name='password' id="password" required>
+                    <label for="">Password</label>
+                    <i class='bx bxs-lock-alt'></i>
+                </div>
+
+                <div class="input-box">
+                    <button class="btn" type="submit">Login</button>
+                </div>
+
+                <div class="regi-link">
+                    <p>Don't have an account? <a href='Registration.html'>Sign Up</a></p>
+                </div>
+            </form>
+        </div>
+        <div class="info-content Login">
+            <h2>Welcome back!</h2>
+            <p>Log in to book sports courts, manage your reservations, and enjoy a seamless gaming experience.</p>
+        </div>
+    </div>
+    <script src="login.js"></script>
+</body>
+
+</html>
