@@ -64,6 +64,33 @@
         </div>
     </section>
 
+    <!-- Login Required Modal -->
+<div id="loginRequiredModal"
+    class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center">
+
+    <div class="bg-white rounded-xl p-6 w-80 text-center">
+        <h2 class="text-xl font-bold mb-3">
+            Login Required
+        </h2>
+
+        <p class="text-gray-600 mb-6">
+            Please login to join a match.
+        </p>
+
+        <div class="flex gap-3">
+            <button id="goLogin"
+                class="flex-1 bg-blue-600 text-white py-2 rounded-lg">
+                Login
+            </button>
+
+            <button id="cancelLogin"
+                class="flex-1 bg-gray-300 py-2 rounded-lg">
+                Cancel
+            </button>
+        </div>
+    </div>
+</div>
+
     <div id="joinModal" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl p-8 max-w-sm w-full relative">
             <button id="closeModal"
@@ -100,6 +127,7 @@
 
         const container = document.getElementById("matchesContainer");
         const modal = document.getElementById("joinModal");
+        const loginRequiredModal = document.getElementById("loginRequiredModal");
         const form = document.getElementById("joinForm");
         const actionBtn = document.getElementById("actionBtn");
         const otpGroup = document.getElementById("otpGroup");
@@ -164,6 +192,13 @@
         }
 
         function openModal(id) {
+            const loggedInUser = localStorage.getItem("user");
+
+            if (!loggedInUser) {
+                loginRequiredModal.classList.remove("hidden");
+                return;
+            }
+
             currentMatchId = id;
 
             form.reset();
@@ -255,6 +290,14 @@
 
         document.getElementById("themeToggle").addEventListener("click", () => {
             document.body.classList.toggle("dark-mode");
+        });
+
+        document.getElementById("goLogin").addEventListener("click", () => {
+            window.location.href = "login.html";
+        });
+
+        document.getElementById("cancelLogin").addEventListener("click", () => {
+            loginRequiredModal.classList.add("hidden");
         });
 
         render();

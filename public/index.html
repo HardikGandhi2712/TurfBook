@@ -514,21 +514,14 @@
             document.getElementById("navProfile").classList.remove("hidden");
             document.getElementById("navProfile").classList.add("flex");
 
-            document.getElementById("navName").textContent = user.name;
+            document.getElementById("navName").textContent = user.username;
 
-            if (user.avatar && user.avatar !== "") {
-                document.getElementById("navAvatar").src = user.avatar;
-            } else {
-                document.getElementById("navAvatar").src =
-                    "https://ui-avatars.com/api/?name=" +
-                    encodeURIComponent(user.name) +
-                    "&background=2563eb&color=fff";
-            }
-
+            document.getElementById("navAvatar").src = user.avatar;
+            
             const heroHeadline = document.getElementById("heroHeadline");
 
             if (heroHeadline) {
-                heroHeadline.textContent = `Welcome back, ${user.name}!`;
+                heroHeadline.textContent = `Welcome back, ${user.username}!`;
             }
 
             document.getElementById("logoutBtn").addEventListener("click", () => {

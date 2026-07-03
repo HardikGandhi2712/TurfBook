@@ -24,7 +24,6 @@ document.getElementById("loginForm").addEventListener(
                     "user",
                     JSON.stringify(data.user)
                 );
-            alert(data.message);
             window.location.href = "index.html";
         }
         else {
