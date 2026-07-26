@@ -35,34 +35,54 @@
 }
 
 .modal-header{
+    position: relative;
     display:flex;
     justify-content:space-between;
     align-items:center;
     padding:20px 28px;
     background:#2457d6;
-    color:white;
+    color:#fff;
     border-radius:18px 18px 0 0;
+    overflow:hidden;
 }
 
 .modal-header h2{
     margin:0;
     font-size:26px;
+    font-weight:600;
 }
 
 .close-btn{
-    width:40px;
-    height:40px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    width:42px;
+    height:42px;
+
     border:none;
     border-radius:50%;
-    background:rgba(255,255,255,.2);
-    color:white;
-    font-size:20px;
+
+    background:rgba(255,255,255,.18);
+    color:#fff;
+
+    font-size:24px;
+    font-weight:600;
+    line-height:1;
+
     cursor:pointer;
-    transition:.3s;
+
+    transition:.3s ease;
+    flex-shrink:0;
 }
 
 .close-btn:hover{
     background:#ff4d4d;
+    transform:scale(1.08);
+}
+
+.close-btn:active{
+    transform:scale(.95);
 }
 
 .detail-section{

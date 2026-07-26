@@ -35,7 +35,6 @@ function TicketModal({ ticket, onClose }) {
                     </button>
                 </div>
 
-                {/* Ticket Info */}
                 <div className="detail-section">
                     <h3>Ticket Information</h3>
 
@@ -46,7 +45,6 @@ function TicketModal({ ticket, onClose }) {
                     <Field label="Created At" value={ticket.createdAt} />
                 </div>
 
-                {/* User Info */}
                 <div className="detail-section">
                     <h3>Customer Information</h3>
 
@@ -56,7 +54,6 @@ function TicketModal({ ticket, onClose }) {
                     <Field label="Username" value={ticket.username} />
                 </div>
 
-                {/* Booking Details */}
                 <div className="detail-section">
                     <h3>Booking Details</h3>
 
@@ -65,7 +62,6 @@ function TicketModal({ ticket, onClose }) {
                     <Field label="Sport" value={ticket.sport} />
                 </div>
 
-                {/* Payment Details */}
                 <div className="detail-section">
                     <h3>Payment Details</h3>
 
@@ -74,7 +70,6 @@ function TicketModal({ ticket, onClose }) {
                     <Field label="Payment Method" value={ticket.paymentMethod} />
                 </div>
 
-                {/* Equipment Details */}
                 <div className="detail-section">
                     <h3>Equipment Details</h3>
 
@@ -82,7 +77,6 @@ function TicketModal({ ticket, onClose }) {
                     <Field label="Quantity" value={ticket.quantity} />
                 </div>
 
-                {/* Technical Details */}
                 <div className="detail-section">
                     <h3>Technical Details</h3>
 
@@ -90,7 +84,6 @@ function TicketModal({ ticket, onClose }) {
                     <Field label="Browser" value={ticket.browser} />
                 </div>
 
-                {/* Description */}
                 <div className="detail-section">
                     <h3>Description</h3>
 
