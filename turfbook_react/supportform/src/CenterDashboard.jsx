@@ -7,12 +7,12 @@ function CenterDashboard() {
   const [sportFilter, setSportFilter] = useState("All");
   const [selectedCenter, setSelectedCenter] = useState(null);
 
-  useEffect(() => {
-    const role = localStorage.getItem("role");
-    if (role !== "admin") {
-      window.location.href = "http://localhost:3000/login.html";
-    }
-  }, []);
+  // useEffect(() => {
+  //   const role = localStorage.getItem("role");
+  //   if (role !== "admin") {
+  //     window.location.href = "http://localhost:3000/login.html";
+  //   }
+  // }, []);
 
   const loadCenters = async () => {
     try {

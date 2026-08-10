@@ -57,26 +57,53 @@ function CourtRegistrationForm() {
     return true;
   };
 
-  const submitForm = async (e) => {
+const submitForm = async (e) => {
     e.preventDefault();
 
     if (!validate()) return;
 
-    // Simulate API call
-    console.log("Submitting to MongoDB:", formData);
-    alert("Center Registered Successfully!");
+    try {
+        const response = await fetch(
+            "http://localhost:3001/registerCenter",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData),
+            }
+        );
 
-    // Reset state
-    setFormData({
-      ownerName: "",
-      phone: "",
-      email: "",
-      centerName: "",
-      sports: [],
-      address: "",
-      additionalDetails: "",
-    });
-  };
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.message || "Registration failed");
+        }
+
+        // Successfully saved in MongoDB
+        console.log("Saved:", data.center);
+
+        alert("Center Registered Successfully!");
+
+        // Clear form
+        setFormData({
+            ownerName: "",
+            phone: "",
+            email: "",
+            centerName: "",
+            sports: [],
+            address: "",
+            additionalDetails: "",
+        });
+
+    } catch (error) {
+        console.error("Error submitting form:", error);
+
+        alert(
+            "Failed to register center. Please check whether the server is running."
+        );
+    }
+};
 
   const inputStyles = `w-full p-4 mb-5 rounded-xl border-2 border-gray-300 text-[15px] 
     outline-none transition duration-300 bg-gray-50 placeholder-gray-400
