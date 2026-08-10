@@ -20,17 +20,17 @@ document.getElementById("loginForm").addEventListener(
         const data = await response.json();
         const msg = document.getElementById("message");
         if (data.success) {
-                localStorage.setItem(
-                    "user",
-                    JSON.stringify(data.user)
-                );
-            window.location.href = "index.html";
+            if (data.role === "admin") {
+                localStorage.setItem("role", "admin");
+                window.location.href = "http://localhost:3002/admin";
+                return;
+            } else {
+                localStorage.setItem("user", JSON.stringify(data.user));
+                window.location.href = "index.html";
+            }
+        } else {
+                alert(data.message);
+                window.location.href = "login.html";
         }
-        else {
-            alert(data.message);
-            window.location.href = "login.html";
-        }
-
     }
-
 );
