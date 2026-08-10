@@ -1,210 +1,414 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
-body{
-    background:linear-gradient(135deg,#0f172a,#2563eb,#60a5fa);
-    min-height:100vh;
+body {
+    background: linear-gradient(135deg, #0f172a, #2563eb, #60a5fa);
+    min-height: 100vh;
 }
 
-.admin-container{
-    width:95%;
-    max-width:1500px;
-    margin:35px auto;
+.admin-container {
+    width: 95%;
+    max-width: 1500px;
+    margin: 35px auto;
+    overflow: visible;
 }
 
-.admin-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:30px;
-    padding:25px 35px;
-    border-radius:20px;
-    backdrop-filter:blur(18px);
-    background:rgba(255,255,255,.12);
-    box-shadow:0 15px 35px rgba(0,0,0,.25);
+/* ================= HEADER ================= */
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 30px;
+    padding: 25px 35px;
+
+    border-radius: 20px;
+
+    backdrop-filter: blur(18px);
+    background: rgba(255, 255, 255, .12);
+
+    box-shadow: 0 15px 35px rgba(0, 0, 0, .25);
+
+    /* IMPORTANT FOR DROPDOWN */
+    position: relative;
+    overflow: visible !important;
+    z-index: 1000;
 }
 
-.admin-header h1{
-    color:white;
-    font-size:34px;
-    font-weight:700;
+.admin-header h1 {
+    color: white;
+    font-size: 34px;
+    font-weight: 700;
 }
 
-.toolbar{
-    flex:1;
-    margin:0 35px;
-    display:flex;
-    flex-direction:column;
-    gap:15px;
+/* ================= TOOLBAR ================= */
+
+.toolbar {
+    flex: 1;
+    margin: 0 35px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
-.search-box{
-    width:100%;
-    padding:15px 18px;
-    border:none;
-    border-radius:12px;
-    background:white;
-    font-size:15px;
-    outline:none;
-    box-shadow:0 10px 25px rgba(0,0,0,.08);
+.search-box {
+    width: 100%;
+    padding: 15px 18px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: white;
+    font-size: 15px;
+    outline: none;
+
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
 }
 
-.filters{
-    display:flex;
-    gap:15px;
+.filters {
+    display: flex;
+    gap: 15px;
 }
 
-.filters select{
-    flex:1;
-    padding:13px;
-    border:none;
-    border-radius:10px;
-    background:white;
-    font-size:15px;
-    cursor:pointer;
-    box-shadow:0 10px 20px rgba(0,0,0,.08);
+.filters select {
+    flex: 1;
+
+    padding: 13px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: white;
+    font-size: 15px;
+    cursor: pointer;
+
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .08);
 }
 
-.logout-btn{
-    padding:14px 28px;
-    border:none;
-    border-radius:12px;
-    background:#ef4444;
-    color:white;
-    font-weight:600;
-    cursor:pointer;
-    transition:.3s;
+/* ================= LOGOUT ================= */
+
+.logout-btn {
+    padding: 14px 28px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: #ef4444;
+    color: white;
+
+    font-weight: 600;
+    cursor: pointer;
+
+    transition: .3s;
 }
 
-.logout-btn:hover{
-    background:#dc2626;
-    transform:translateY(-2px);
+.logout-btn:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
 }
 
-.table-card{
-    background:rgba(255,255,255,.15);
-    backdrop-filter:blur(18px);
-    border-radius:22px;
-    padding:25px;
-    box-shadow:0 25px 50px rgba(0,0,0,.25);
+/* ================= TABLE ================= */
+
+.table-card {
+    background: rgba(255, 255, 255, .15);
+    backdrop-filter: blur(18px);
+
+    border-radius: 22px;
+    padding: 25px;
+
+    box-shadow: 0 25px 50px rgba(0, 0, 0, .25);
+
+    /* KEEP TABLE BEHIND DROPDOWN */
+    position: relative;
+    z-index: 1;
 }
 
-table{
-    width:100%;
-    border-collapse:collapse;
-    overflow:hidden;
-    border-radius:15px;
-    background:white;
+table {
+    width: 100%;
+    border-collapse: collapse;
+
+    overflow: hidden;
+    border-radius: 15px;
+
+    background: white;
 }
 
-thead{
-    background:#2563eb;
+thead {
+    background: #2563eb;
 }
 
-th{
-    color:white;
-    padding:18px;
-    font-size:15px;
-    text-align:center;
-    font-weight:600;
+th {
+    color: white;
+    padding: 18px;
+
+    font-size: 15px;
+    text-align: center;
+    font-weight: 600;
 }
 
-td{
-    padding:16px;
-    text-align:center;
-    border-bottom:1px solid #e5e7eb;
-    font-size:14px;
-    color:#374151;
+td {
+    padding: 16px;
+
+    text-align: center;
+
+    border-bottom: 1px solid #e5e7eb;
+
+    font-size: 14px;
+    color: #374151;
 }
 
-tbody tr{
-    transition:.25s;
+tbody tr {
+    transition: .25s;
 }
 
-tbody tr:hover{
-    background:#f8fbff;
-    transform:scale(1.003);
+tbody tr:hover {
+    background: #f8fbff;
+    transform: scale(1.003);
 }
 
-.status{
-    padding:7px 15px;
-    border-radius:30px;
-    font-size:13px;
-    font-weight:600;
+/* ================= STATUS ================= */
+
+.status {
+    padding: 7px 15px;
+
+    border-radius: 30px;
+
+    font-size: 13px;
+    font-weight: 600;
 }
 
-.status.resolved{
-    background:#dcfce7;
-    color:#15803d;
+.status.resolved {
+    background: #dcfce7;
+    color: #15803d;
 }
 
-.status.unresolved{
-    background:#fee2e2;
-    color:#dc2626;
+.status.unresolved {
+    background: #fee2e2;
+    color: #dc2626;
 }
 
-.action-btn{
-    border:none;
-    border-radius:10px;
-    padding:9px 16px;
-    color:white;
-    font-size:13px;
-    cursor:pointer;
-    transition:.25s;
-    margin:2px;
+/* ================= ACTION BUTTONS ================= */
+
+.action-btn {
+    border: none;
+    border-radius: 10px;
+
+    padding: 9px 16px;
+
+    color: white;
+    font-size: 13px;
+
+    cursor: pointer;
+
+    transition: .25s;
+    margin: 2px;
 }
 
-.action-btn:hover{
-    transform:translateY(-2px);
+.action-btn:hover {
+    transform: translateY(-2px);
 }
 
-.view-btn{
-    background:#3b82f6;
+.view-btn {
+    background: #3b82f6;
 }
 
-.view-btn:hover{
-    background:#2563eb;
+.view-btn:hover {
+    background: #2563eb;
 }
 
-.resolve-btn{
-    background:#22c55e;
+.resolve-btn {
+    background: #22c55e;
 }
 
-.resolve-btn:hover{
-    background:#16a34a;
+.resolve-btn:hover {
+    background: #16a34a;
 }
 
-.delete-btn{
-    background:#ef4444;
+.delete-btn {
+    background: #ef4444;
 }
 
-.delete-btn:hover{
-    background:#dc2626;
+.delete-btn:hover {
+    background: #dc2626;
 }
 
-@media(max-width:1100px){
+/* ================================================= */
+/*                 FILE SYSTEM DROPDOWN               */
+/* ================================================= */
 
-.admin-header{
-    flex-direction:column;
-    align-items:stretch;
-    gap:20px;
+.filesystem-wrapper {
+    position: relative;
+    display: inline-block;
+
+    /* VERY IMPORTANT */
+    z-index: 9999;
 }
 
-.toolbar{
-    margin:0;
+.filesystem-btn {
+    background: #ffffff;
+
+    border: 1px solid #ddd;
+
+    padding: 10px 16px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+    font-weight: 600;
 }
 
-.filters{
-    flex-direction:column;
+.filesystem-btn:hover {
+    background: #f5f5f5;
 }
 
-table{
-    display:block;
-    overflow-x:auto;
+.arrow {
+    margin-left: 8px;
+    font-size: 11px;
 }
 
+/* ================= DROPDOWN ================= */
+
+.filesystem-mega-menu {
+    position: absolute;
+
+    /* Opens directly below button */
+    top: calc(100% + 8px);
+
+    /* Align right edge with button */
+    right: 0;
+
+    width: 500px;
+
+    background: white;
+
+    border: 1px solid #ddd;
+
+    border-radius: 12px;
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+
+    display: flex;
+
+    gap: 0;
+
+    padding: 12px;
+
+    /* ABOVE EVERYTHING */
+    z-index: 99999;
+}
+
+/* ================= COLUMNS ================= */
+
+.filesystem-column {
+    flex: 1;
+    padding: 8px;
+}
+
+.filesystem-column + .filesystem-column {
+    border-left: 1px solid #eee;
+}
+
+.filesystem-column h3 {
+    font-size: 13px;
+
+    color: #777;
+
+    margin: 5px 10px 10px;
+
+    text-transform: uppercase;
+}
+
+/* ================= MENU ITEMS ================= */
+
+.filesystem-item {
+    padding: 12px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 4px;
+}
+
+.filesystem-item:hover {
+    background: #f3f4f6;
+}
+
+.filesystem-item strong {
+    font-size: 14px;
+    color: #222;
+}
+
+.filesystem-item span {
+    font-size: 12px;
+    color: #777;
+}
+
+/* ================= DELETE ================= */
+
+.filesystem-item.delete-item:hover {
+    background: #fff1f1;
+}
+
+.delete-item strong {
+    color: #d32f2f;
+}
+
+/* ================================================= */
+/*                    RESPONSIVE                     */
+/* ================================================= */
+
+@media (max-width: 1100px) {
+
+    .admin-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 20px;
+    }
+
+    .toolbar {
+        margin: 0;
+    }
+
+    .filters {
+        flex-direction: column;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+    }
+
+    /* Dropdown adapts to smaller screens */
+    .filesystem-mega-menu {
+        width: 450px;
+        right: 0;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .filesystem-mega-menu {
+        width: 90vw;
+        right: -10px;
+    }
+
+    .filesystem-column {
+        padding: 5px;
+    }
+
+    .filesystem-item {
+        padding: 9px;
+    }
 }
