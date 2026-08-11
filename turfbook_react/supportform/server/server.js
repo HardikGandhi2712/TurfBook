@@ -9,6 +9,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const csvPath = path.join(__dirname, "sports_arena_tickets.csv");
+const backupPath = path.join(__dirname, "sports_arena_tickets_backup.csv");
+const dbPath = path.join(__dirname, "support.db");
+
 const db = new sqlite3.Database("support.db", (err) => {
     if (err) {
         console.log(err.message);
@@ -459,23 +463,31 @@ app.put("/update-csv/:id", (req, res) => {
 });
 
 app.get("/rename-csv", (req, res) => {
+    const newName = req.query.name;
 
-    fs.rename(
-        csvPath,
-        backupPath,
-        (err) => {
+    if (!newName) {
+        return res.status(400).json({
+            message: "Please provide a new file name"
+        });
+    }
 
-            if (err) {
-                return res.status(500).json({
-                    message: "Unable to rename CSV: " + err.message
-                });
-            }
+    const fileName = newName.endsWith(".csv")
+        ? newName
+        : newName + ".csv";
 
-            res.json({
-                message: "CSV file renamed successfully"
+    const newPath = path.join(__dirname, fileName);
+
+    fs.rename(csvPath, newPath, (err) => {
+        if (err) {
+            return res.status(500).json({
+                message: "Unable to rename CSV: " + err.message
             });
         }
-    );
+
+        res.json({
+            message: `CSV file renamed to ${fileName} successfully`
+        });
+    });
 });
 
 app.delete("/delete-csv", (req, res) => {

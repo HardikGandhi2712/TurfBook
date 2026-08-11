@@ -22,6 +22,25 @@ function AdminDashboard() {
     }, []);
 
 
+    const renameCSV = async () => {
+    const newName = prompt("Enter the new CSV file name:");
+
+    if (!newName) return;
+
+    try {
+        const response = await fetch(
+            `http://localhost:3001/rename-csv?name=${encodeURIComponent(newName)}`
+        );
+
+        const data = await response.json();
+
+        alert(data.message);
+    } catch (error) {
+        alert("Error renaming CSV file");
+        console.error(error);
+    }
+};
+
     const loadTickets = () => {
         fetch("http://localhost:3001/readTickets")
             .then(res => res.json())
@@ -117,17 +136,6 @@ const viewTicket = (ticket) => {
         const data = await response.text();
         alert(data);
     }
-
-const renameCSV = async () => {
-
-    const response = await fetch(
-        "http://localhost:3001/rename-csv"
-    );
-
-    const data = await response.json();
-
-    alert(data.message);
-};
 
 const deleteCSV = async () => {
 
